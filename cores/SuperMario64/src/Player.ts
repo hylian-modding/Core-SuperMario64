@@ -1,5 +1,6 @@
 import IMemory from 'modloader64_api/IMemory';
 import * as API from '../API/Imports';
+import fs from 'fs';
 
 export class Player extends API.BaseObj implements API.IPlayer {
     private instance: number = global.ModLoader[API.AddressType.PLAYER];
@@ -16,11 +17,15 @@ export class Player extends API.BaseObj implements API.IPlayer {
     private visible_addr = 0x02;
     private y_off_addr = 0x3A;
 
-    private animations: Map<number, Buffer> = new Map<number, Buffer>();
+    private animations: Map<number, Buffer>;
 
     constructor(emu: IMemory) {
         super(emu);
-        // Need to load a cache file here when we begin saving them
+
+        // Load cache
+        this.animations = new Map(
+            JSON.parse(fs.readFileSync(__dirname + '/cache/anims.json').toString())
+        );
     }
 
     get exists(): boolean {
@@ -31,7 +36,7 @@ export class Player extends API.BaseObj implements API.IPlayer {
         return this.emulator.rdramReadPtr16(this.instance, this.anim_id_addr);
     }
     set animation_id(val: number) {
-        // Do nothing until further notice
+        this.emulator.rdramWritePtr16(this.instance, this.anim_id_addr, val);
     }
 
     get animation_frame(): number {
@@ -161,7 +166,7 @@ export class Player extends API.BaseObj implements API.IPlayer {
 
     onTick(): void {
         let id = this.animation_id;
-        if (id === 0 || this.animations.has(id)) return;
+        if (this.animations.has(id)) return;
         this.animations.set(id, this.get_anim());
     }
 }
