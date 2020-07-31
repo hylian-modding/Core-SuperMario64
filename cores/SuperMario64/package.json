@@ -1,0 +1,11 @@
+{
+  "name": "SuperMario64",
+  "version": "1.0.0",
+  "description": "",
+  "main": "SuperMario64.js",
+  "author": "SpiceyWolf, MelonSpeedsuns",
+  "credits": "Cheezepin",
+  "license": "GPL3",
+  "core": "SuperMario64",
+  "updateUrl": "https://raw.githubusercontent.com/Modloader-Lost-Mods/Core-SuperMario64/master/update.json"
+}
