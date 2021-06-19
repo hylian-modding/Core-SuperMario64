@@ -7,6 +7,8 @@ import * as API from './API/Imports';
 import * as CORE from './src/Imports';
 
 export class SuperMario64 implements ICore, API.ISM64Core {
+    heap_start: number = -1;
+    heap_size: number = -1;
     header = 'NSM';
     ModLoader: IModLoaderAPI = {} as IModLoaderAPI;
     eventTicks: Map<string, Function> = new Map<string, Function>();

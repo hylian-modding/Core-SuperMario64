@@ -19,7 +19,8 @@
       "@SuperMario64/*": [
         "./src/SuperMario64/*"
       ]
-    }
+    },
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*.ts",
